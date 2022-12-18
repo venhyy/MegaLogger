@@ -20,6 +20,10 @@
 
 // Include any extended elements
 //<Includes !Start!>
+// Include extended elements
+#include "elem/XKeyPad_Num.h"
+
+// Ensure optional features are enabled in the configuration
 //<Includes !End!>
 
 // ------------------------------------------------
@@ -43,14 +47,14 @@
 // Enumerations for pages, elements, fonts, images
 // ------------------------------------------------
 //<Enum !Start!>
-enum {E_PG_MAIN};
-enum {E_ELEM_TEXT10,E_ELEM_TEXT11,E_ELEM_TEXT12,E_ELEM_TEXT13
-      ,E_ELEM_TEXT14,E_ELEM_TEXT15,E_ELEM_TEXT16,E_ELEM_TEXT17
-      ,E_ELEM_TEXT18,E_ELEM_TEXT19,E_ELEM_TEXT20,E_ELEM_TEXT21
-      ,E_ELEM_TEXT4,E_ELEM_TEXT5,E_ELEM_TEXT6,E_ELEM_TEXT7,E_ELEM_TEXT8
-      ,E_ELEM_TEXT9};
+enum {E_PG_MAIN,E_POP_KEYPAD_NUM};
+enum {E_ELEM_NUMINPUT1,E_ELEM_TEXT10,E_ELEM_TEXT11,E_ELEM_TEXT12
+      ,E_ELEM_TEXT13,E_ELEM_TEXT14,E_ELEM_TEXT15,E_ELEM_TEXT16
+      ,E_ELEM_TEXT17,E_ELEM_TEXT18,E_ELEM_TEXT19,E_ELEM_TEXT20
+      ,E_ELEM_TEXT21,E_ELEM_TEXT4,E_ELEM_TEXT5,E_ELEM_TEXT6
+      ,E_ELEM_TEXT7,E_ELEM_TEXT8,E_ELEM_TEXT9,E_ELEM_KEYPAD_NUM};
 // Must use separate enum for fonts with MAX_FONT at end to use gslc_FontSet.
-enum {E_BUILTIN10X16,MAX_FONT};
+enum {E_BUILTIN10X16,E_BUILTIN5X8,MAX_FONT};
 //<Enum !End!>
 
 // ------------------------------------------------
@@ -61,9 +65,9 @@ enum {E_BUILTIN10X16,MAX_FONT};
 // Define the maximum number of elements and pages
 // ------------------------------------------------
 //<ElementDefines !Start!>
-#define MAX_PAGE                1
+#define MAX_PAGE                2
 
-#define MAX_ELEM_PG_MAIN 18 // # Elems total on page
+#define MAX_ELEM_PG_MAIN 19 // # Elems total on page
 #define MAX_ELEM_PG_MAIN_RAM MAX_ELEM_PG_MAIN // # Elems in RAM
 //<ElementDefines !End!>
 
@@ -78,6 +82,9 @@ gslc_tsPage                     m_asPage[MAX_PAGE];
 //<GUI_Extra_Elements !Start!>
 gslc_tsElem                     m_asPage1Elem[MAX_ELEM_PG_MAIN_RAM];
 gslc_tsElemRef                  m_asPage1ElemRef[MAX_ELEM_PG_MAIN];
+gslc_tsElem                     m_asKeypadNumElem[1];
+gslc_tsElemRef                  m_asKeypadNumElemRef[1];
+gslc_tsXKeyPad                  m_sKeyPadNum;
 
 #define MAX_STR                 100
 
@@ -89,6 +96,8 @@ gslc_tsElemRef                  m_asPage1ElemRef[MAX_ELEM_PG_MAIN];
 
 // Element References for direct access
 //<Extern_References !Start!>
+extern gslc_tsElemRef* m_pElemValT1;
+extern gslc_tsElemRef* m_pElemKeyPadNum;
 //<Extern_References !End!>
 
 // Define debug message function
@@ -120,10 +129,12 @@ void InitGUIslice_gen()
   // ------------------------------------------------
 //<Load_Fonts !Start!>
     if (!gslc_FontSet(&m_gui,E_BUILTIN10X16,GSLC_FONTREF_PTR,NULL,2)) { return; }
+    if (!gslc_FontSet(&m_gui,E_BUILTIN5X8,GSLC_FONTREF_PTR,NULL,1)) { return; }
 //<Load_Fonts !End!>
 
 //<InitGUI !Start!>
   gslc_PageAdd(&m_gui,E_PG_MAIN,m_asPage1Elem,MAX_ELEM_PG_MAIN_RAM,m_asPage1ElemRef,MAX_ELEM_PG_MAIN);
+  gslc_PageAdd(&m_gui,E_POP_KEYPAD_NUM,m_asKeypadNumElem,1,m_asKeypadNumElemRef,1);  // KeyPad
 
   // NOTE: The current page defaults to the first page added. Here we explicitly
   //       ensure that the main page is the correct page no matter the add order.
@@ -241,6 +252,27 @@ void InitGUIslice_gen()
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT21,E_PG_MAIN,(gslc_tsRect){160,10,49,18},
     (char*)"Tlak",0,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  
+  // Create E_ELEM_NUMINPUT1 numeric input field
+  static char m_sInputNumber1[6] = "";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT1,E_PG_MAIN,(gslc_tsRect){60,30,71,18},
+    (char*)m_sInputNumber1,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
+  gslc_ElemSetClickEn(&m_gui, pElemRef, true);
+  gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
+  m_pElemValT1 = pElemRef;
+
+  // -----------------------------------
+  // PAGE: E_POP_KEYPAD_NUM
+  
+  static gslc_tsXKeyPadCfg_Num sCfg;
+  sCfg = gslc_ElemXKeyPadCfgInit_Num();
+  gslc_ElemXKeyPadCfgSetFloatEn_Num(&sCfg, true);
+  gslc_ElemXKeyPadCfgSetSignEn_Num(&sCfg, true);
+  m_pElemKeyPadNum = gslc_ElemXKeyPadCreate_Num(&m_gui, E_ELEM_KEYPAD_NUM, E_POP_KEYPAD_NUM,
+    &m_sKeyPadNum, 65, 80, E_BUILTIN5X8, &sCfg);
+  gslc_ElemXKeyPadValSetCb(&m_gui, m_pElemKeyPadNum, &CbKeypad);
 //<InitGUI !End!>
 
 //<Startup !Start!>
