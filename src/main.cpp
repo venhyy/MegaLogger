@@ -13,7 +13,16 @@
 // Headers to include
 // ------------------------------------------------
 #include "MegaLogger_GSLC.h"
+#include <SPI.h>
+#include <SD.h>
 
+File myFile;
+
+uint8_t press_channels[] = {A8, A9, A10, A11, A12, A13, A14};
+
+uint8_t readTime = 5000; //read period
+
+unsigned long ellapsedTime = 0;
 
 // ------------------------------------------------
 // Program Globals
@@ -241,6 +250,11 @@ void setup()
   // Initialize
   // ------------------------------------------------
   Serial.begin(9600);
+  if (!SD.begin(4)) {
+    Serial.println("SD init failed");
+  }
+  Serial.println("SD init OK");
+
   // Wait for USB Serial 
   //delay(1000);  // NOTE: Some devices require a delay after Serial.begin() before serial port can be used
 
