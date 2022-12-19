@@ -48,7 +48,12 @@
 // ------------------------------------------------
 //<Enum !Start!>
 enum {E_PG_MAIN,E_POP_KEYPAD_NUM};
-enum {E_ELEM_NUMINPUT1,E_ELEM_TEXT10,E_ELEM_TEXT11,E_ELEM_TEXT12
+enum {E_ELEM_NUMINPUT1,E_ELEM_NUMINPUT10,E_ELEM_NUMINPUT11
+      ,E_ELEM_NUMINPUT12,E_ELEM_NUMINPUT13,E_ELEM_NUMINPUT14
+      ,E_ELEM_NUMINPUT15,E_ELEM_NUMINPUT16,E_ELEM_NUMINPUT2
+      ,E_ELEM_NUMINPUT3,E_ELEM_NUMINPUT4,E_ELEM_NUMINPUT5
+      ,E_ELEM_NUMINPUT6,E_ELEM_NUMINPUT7,E_ELEM_NUMINPUT8
+      ,E_ELEM_NUMINPUT9,E_ELEM_TEXT10,E_ELEM_TEXT11,E_ELEM_TEXT12
       ,E_ELEM_TEXT13,E_ELEM_TEXT14,E_ELEM_TEXT15,E_ELEM_TEXT16
       ,E_ELEM_TEXT17,E_ELEM_TEXT18,E_ELEM_TEXT19,E_ELEM_TEXT20
       ,E_ELEM_TEXT21,E_ELEM_TEXT4,E_ELEM_TEXT5,E_ELEM_TEXT6
@@ -67,7 +72,7 @@ enum {E_BUILTIN10X16,E_BUILTIN5X8,MAX_FONT};
 //<ElementDefines !Start!>
 #define MAX_PAGE                2
 
-#define MAX_ELEM_PG_MAIN 19 // # Elems total on page
+#define MAX_ELEM_PG_MAIN 34 // # Elems total on page
 #define MAX_ELEM_PG_MAIN_RAM MAX_ELEM_PG_MAIN // # Elems in RAM
 //<ElementDefines !End!>
 
@@ -96,7 +101,22 @@ gslc_tsXKeyPad                  m_sKeyPadNum;
 
 // Element References for direct access
 //<Extern_References !Start!>
+extern gslc_tsElemRef* m_pElemValP1;
+extern gslc_tsElemRef* m_pElemValP2;
+extern gslc_tsElemRef* m_pElemValP3;
+extern gslc_tsElemRef* m_pElemValP4;
+extern gslc_tsElemRef* m_pElemValP5;
+extern gslc_tsElemRef* m_pElemValP6;
+extern gslc_tsElemRef* m_pElemValP7;
 extern gslc_tsElemRef* m_pElemValT1;
+extern gslc_tsElemRef* m_pElemValT2;
+extern gslc_tsElemRef* m_pElemValT3;
+extern gslc_tsElemRef* m_pElemValT4;
+extern gslc_tsElemRef* m_pElemValT5;
+extern gslc_tsElemRef* m_pElemValT6;
+extern gslc_tsElemRef* m_pElemValT7;
+extern gslc_tsElemRef* m_pElemValT8;
+extern gslc_tsElemRef* m_pElemValT9;
 extern gslc_tsElemRef* m_pElemKeyPadNum;
 //<Extern_References !End!>
 
@@ -258,10 +278,176 @@ void InitGUIslice_gen()
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT1,E_PG_MAIN,(gslc_tsRect){60,30,71,18},
     (char*)m_sInputNumber1,6,E_BUILTIN10X16);
   gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLACK,GSLC_COL_BLACK,GSLC_COL_BLACK);
   gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
   gslc_ElemSetClickEn(&m_gui, pElemRef, true);
   gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
   m_pElemValT1 = pElemRef;
+  
+  // Create E_ELEM_NUMINPUT2 numeric input field
+  static char m_sInputNumber2[6] = "";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT2,E_PG_MAIN,(gslc_tsRect){60,53,71,18},
+    (char*)m_sInputNumber2,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLACK,GSLC_COL_BLACK,GSLC_COL_BLACK);
+  gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
+  gslc_ElemSetClickEn(&m_gui, pElemRef, true);
+  gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
+  m_pElemValT2 = pElemRef;
+  
+  // Create E_ELEM_NUMINPUT3 numeric input field
+  static char m_sInputNumber3[6] = "";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT3,E_PG_MAIN,(gslc_tsRect){60,76,71,18},
+    (char*)m_sInputNumber3,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLACK,GSLC_COL_BLACK,GSLC_COL_BLACK);
+  gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
+  gslc_ElemSetClickEn(&m_gui, pElemRef, true);
+  gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
+  m_pElemValT3 = pElemRef;
+  
+  // Create E_ELEM_NUMINPUT4 numeric input field
+  static char m_sInputNumber4[6] = "";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT4,E_PG_MAIN,(gslc_tsRect){60,99,71,18},
+    (char*)m_sInputNumber4,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLACK,GSLC_COL_BLACK,GSLC_COL_BLACK);
+  gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
+  gslc_ElemSetClickEn(&m_gui, pElemRef, true);
+  gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
+  m_pElemValT4 = pElemRef;
+  
+  // Create E_ELEM_NUMINPUT5 numeric input field
+  static char m_sInputNumber5[6] = "";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT5,E_PG_MAIN,(gslc_tsRect){60,122,71,18},
+    (char*)m_sInputNumber5,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLACK,GSLC_COL_BLACK,GSLC_COL_BLACK);
+  gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
+  gslc_ElemSetClickEn(&m_gui, pElemRef, true);
+  gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
+  m_pElemValT5 = pElemRef;
+  
+  // Create E_ELEM_NUMINPUT6 numeric input field
+  static char m_sInputNumber6[6] = "";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT6,E_PG_MAIN,(gslc_tsRect){60,145,71,18},
+    (char*)m_sInputNumber6,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLACK,GSLC_COL_BLACK,GSLC_COL_BLACK);
+  gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
+  gslc_ElemSetClickEn(&m_gui, pElemRef, true);
+  gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
+  m_pElemValT6 = pElemRef;
+  
+  // Create E_ELEM_NUMINPUT7 numeric input field
+  static char m_sInputNumber7[6] = "";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT7,E_PG_MAIN,(gslc_tsRect){60,168,71,18},
+    (char*)m_sInputNumber7,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLACK,GSLC_COL_BLACK,GSLC_COL_BLACK);
+  gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
+  gslc_ElemSetClickEn(&m_gui, pElemRef, true);
+  gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
+  m_pElemValT7 = pElemRef;
+  
+  // Create E_ELEM_NUMINPUT8 numeric input field
+  static char m_sInputNumber8[6] = "";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT8,E_PG_MAIN,(gslc_tsRect){60,191,71,18},
+    (char*)m_sInputNumber8,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLACK,GSLC_COL_BLACK,GSLC_COL_BLACK);
+  gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
+  gslc_ElemSetClickEn(&m_gui, pElemRef, true);
+  gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
+  m_pElemValT8 = pElemRef;
+  
+  // Create E_ELEM_NUMINPUT9 numeric input field
+  static char m_sInputNumber9[6] = "";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT9,E_PG_MAIN,(gslc_tsRect){60,214,71,18},
+    (char*)m_sInputNumber9,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLACK,GSLC_COL_BLACK,GSLC_COL_BLACK);
+  gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
+  gslc_ElemSetClickEn(&m_gui, pElemRef, true);
+  gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
+  m_pElemValT9 = pElemRef;
+  
+  // Create E_ELEM_NUMINPUT10 numeric input field
+  static char m_sInputNumber10[6] = "";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT10,E_PG_MAIN,(gslc_tsRect){210,31,71,18},
+    (char*)m_sInputNumber10,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLACK,GSLC_COL_BLACK,GSLC_COL_BLACK);
+  gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
+  gslc_ElemSetClickEn(&m_gui, pElemRef, true);
+  gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
+  m_pElemValP1 = pElemRef;
+  
+  // Create E_ELEM_NUMINPUT11 numeric input field
+  static char m_sInputNumber11[6] = "";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT11,E_PG_MAIN,(gslc_tsRect){210,54,71,18},
+    (char*)m_sInputNumber11,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLACK,GSLC_COL_BLACK,GSLC_COL_BLACK);
+  gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
+  gslc_ElemSetClickEn(&m_gui, pElemRef, true);
+  gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
+  m_pElemValP2 = pElemRef;
+  
+  // Create E_ELEM_NUMINPUT12 numeric input field
+  static char m_sInputNumber12[6] = "";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT12,E_PG_MAIN,(gslc_tsRect){210,77,71,18},
+    (char*)m_sInputNumber12,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLACK,GSLC_COL_BLACK,GSLC_COL_BLACK);
+  gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
+  gslc_ElemSetClickEn(&m_gui, pElemRef, true);
+  gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
+  m_pElemValP3 = pElemRef;
+  
+  // Create E_ELEM_NUMINPUT13 numeric input field
+  static char m_sInputNumber13[6] = "";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT13,E_PG_MAIN,(gslc_tsRect){210,100,71,18},
+    (char*)m_sInputNumber13,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLACK,GSLC_COL_BLACK,GSLC_COL_BLACK);
+  gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
+  gslc_ElemSetClickEn(&m_gui, pElemRef, true);
+  gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
+  m_pElemValP4 = pElemRef;
+  
+  // Create E_ELEM_NUMINPUT14 numeric input field
+  static char m_sInputNumber14[6] = "";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT14,E_PG_MAIN,(gslc_tsRect){210,123,71,18},
+    (char*)m_sInputNumber14,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLACK,GSLC_COL_BLACK,GSLC_COL_BLACK);
+  gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
+  gslc_ElemSetClickEn(&m_gui, pElemRef, true);
+  gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
+  m_pElemValP5 = pElemRef;
+  
+  // Create E_ELEM_NUMINPUT15 numeric input field
+  static char m_sInputNumber15[6] = "";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT15,E_PG_MAIN,(gslc_tsRect){210,146,71,18},
+    (char*)m_sInputNumber15,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLACK,GSLC_COL_BLACK,GSLC_COL_BLACK);
+  gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
+  gslc_ElemSetClickEn(&m_gui, pElemRef, true);
+  gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
+  m_pElemValP6 = pElemRef;
+  
+  // Create E_ELEM_NUMINPUT16 numeric input field
+  static char m_sInputNumber16[6] = "";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_NUMINPUT16,E_PG_MAIN,(gslc_tsRect){210,169,71,18},
+    (char*)m_sInputNumber16,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtMargin(&m_gui,pElemRef,5);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLACK,GSLC_COL_BLACK,GSLC_COL_BLACK);
+  gslc_ElemSetFrameEn(&m_gui,pElemRef,true);
+  gslc_ElemSetClickEn(&m_gui, pElemRef, true);
+  gslc_ElemSetTouchFunc(&m_gui, pElemRef, &CbBtnCommon);
+  m_pElemValP7 = pElemRef;
 
   // -----------------------------------
   // PAGE: E_POP_KEYPAD_NUM

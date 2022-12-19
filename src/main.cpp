@@ -21,14 +21,30 @@
 
 // Save some element references for direct access
 //<Save_References !Start!>
+gslc_tsElemRef* m_pElemValP1      = NULL;
+gslc_tsElemRef* m_pElemValP2      = NULL;
+gslc_tsElemRef* m_pElemValP3      = NULL;
+gslc_tsElemRef* m_pElemValP4      = NULL;
+gslc_tsElemRef* m_pElemValP5      = NULL;
+gslc_tsElemRef* m_pElemValP6      = NULL;
+gslc_tsElemRef* m_pElemValP7      = NULL;
 gslc_tsElemRef* m_pElemValT1      = NULL;
+gslc_tsElemRef* m_pElemValT2      = NULL;
+gslc_tsElemRef* m_pElemValT3      = NULL;
+gslc_tsElemRef* m_pElemValT4      = NULL;
+gslc_tsElemRef* m_pElemValT5      = NULL;
+gslc_tsElemRef* m_pElemValT6      = NULL;
+gslc_tsElemRef* m_pElemValT7      = NULL;
+gslc_tsElemRef* m_pElemValT8      = NULL;
+gslc_tsElemRef* m_pElemValT9      = NULL;
 gslc_tsElemRef* m_pElemKeyPadNum  = NULL;
 //<Save_References !End!>
 
-// Define debug message function
-static int16_t DebugOut(char ch) { if (ch == (char)'\n') Serial.println(""); else Serial.write(ch); return 0; }
 
 unsigned  m_nCount = 0;
+
+// Define debug message function
+static int16_t DebugOut(char ch) { if (ch == (char)'\n') Serial.println(""); else Serial.write(ch); return 0; }
 
 // ------------------------------------------------
 // Callback Methods
@@ -49,7 +65,66 @@ bool CbBtnCommon(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int1
         // Clicked on edit field, so show popup box and associate with this text field
         gslc_ElemXKeyPadInputAsk(&m_gui, m_pElemKeyPadNum, E_POP_KEYPAD_NUM, m_pElemValT1);
         break;
-
+      case E_ELEM_NUMINPUT2:
+        // Clicked on edit field, so show popup box and associate with this text field
+        gslc_ElemXKeyPadInputAsk(&m_gui, m_pElemKeyPadNum, E_POP_KEYPAD_NUM, m_pElemValT2);
+        break;
+      case E_ELEM_NUMINPUT3:
+        // Clicked on edit field, so show popup box and associate with this text field
+        gslc_ElemXKeyPadInputAsk(&m_gui, m_pElemKeyPadNum, E_POP_KEYPAD_NUM, m_pElemValT3);
+        break;
+      case E_ELEM_NUMINPUT4:
+        // Clicked on edit field, so show popup box and associate with this text field
+        gslc_ElemXKeyPadInputAsk(&m_gui, m_pElemKeyPadNum, E_POP_KEYPAD_NUM, m_pElemValT4);
+        break;
+      case E_ELEM_NUMINPUT5:
+        // Clicked on edit field, so show popup box and associate with this text field
+        gslc_ElemXKeyPadInputAsk(&m_gui, m_pElemKeyPadNum, E_POP_KEYPAD_NUM, m_pElemValT5);
+        break;
+      case E_ELEM_NUMINPUT6:
+        // Clicked on edit field, so show popup box and associate with this text field
+        gslc_ElemXKeyPadInputAsk(&m_gui, m_pElemKeyPadNum, E_POP_KEYPAD_NUM, m_pElemValT6);
+        break;
+      case E_ELEM_NUMINPUT7:
+        // Clicked on edit field, so show popup box and associate with this text field
+        gslc_ElemXKeyPadInputAsk(&m_gui, m_pElemKeyPadNum, E_POP_KEYPAD_NUM, m_pElemValT7);
+        break;
+      case E_ELEM_NUMINPUT8:
+        // Clicked on edit field, so show popup box and associate with this text field
+        gslc_ElemXKeyPadInputAsk(&m_gui, m_pElemKeyPadNum, E_POP_KEYPAD_NUM, m_pElemValT8);
+        break;
+      case E_ELEM_NUMINPUT9:
+        // Clicked on edit field, so show popup box and associate with this text field
+        gslc_ElemXKeyPadInputAsk(&m_gui, m_pElemKeyPadNum, E_POP_KEYPAD_NUM, m_pElemValT9);
+        break;
+      case E_ELEM_NUMINPUT10:
+        // Clicked on edit field, so show popup box and associate with this text field
+        gslc_ElemXKeyPadInputAsk(&m_gui, m_pElemKeyPadNum, E_POP_KEYPAD_NUM, m_pElemValP1);
+        break;
+      case E_ELEM_NUMINPUT11:
+        // Clicked on edit field, so show popup box and associate with this text field
+        gslc_ElemXKeyPadInputAsk(&m_gui, m_pElemKeyPadNum, E_POP_KEYPAD_NUM, m_pElemValP2);
+        break;
+      case E_ELEM_NUMINPUT12:
+        // Clicked on edit field, so show popup box and associate with this text field
+        gslc_ElemXKeyPadInputAsk(&m_gui, m_pElemKeyPadNum, E_POP_KEYPAD_NUM, m_pElemValP3);
+        break;
+      case E_ELEM_NUMINPUT13:
+        // Clicked on edit field, so show popup box and associate with this text field
+        gslc_ElemXKeyPadInputAsk(&m_gui, m_pElemKeyPadNum, E_POP_KEYPAD_NUM, m_pElemValP4);
+        break;
+      case E_ELEM_NUMINPUT14:
+        // Clicked on edit field, so show popup box and associate with this text field
+        gslc_ElemXKeyPadInputAsk(&m_gui, m_pElemKeyPadNum, E_POP_KEYPAD_NUM, m_pElemValP5);
+        break;
+      case E_ELEM_NUMINPUT15:
+        // Clicked on edit field, so show popup box and associate with this text field
+        gslc_ElemXKeyPadInputAsk(&m_gui, m_pElemKeyPadNum, E_POP_KEYPAD_NUM, m_pElemValP6);
+        break;
+      case E_ELEM_NUMINPUT16:
+        // Clicked on edit field, so show popup box and associate with this text field
+        gslc_ElemXKeyPadInputAsk(&m_gui, m_pElemKeyPadNum, E_POP_KEYPAD_NUM, m_pElemValP7);
+        break;
 //<Button Enums !End!>
       default:
         break;
@@ -79,6 +154,66 @@ bool CbKeypad(void* pvGui, void *pvElemRef, int16_t nState, void* pvData)
         gslc_PopupHide(&m_gui);
         break;
 
+      case E_ELEM_NUMINPUT2:
+        gslc_ElemXKeyPadInputGet(pGui, m_pElemValT2, pvData);
+        gslc_PopupHide(&m_gui);
+        break;
+      case E_ELEM_NUMINPUT3:
+        gslc_ElemXKeyPadInputGet(pGui, m_pElemValT3, pvData);
+        gslc_PopupHide(&m_gui);
+        break;
+      case E_ELEM_NUMINPUT4:
+        gslc_ElemXKeyPadInputGet(pGui, m_pElemValT4, pvData);
+        gslc_PopupHide(&m_gui);
+        break;
+      case E_ELEM_NUMINPUT5:
+        gslc_ElemXKeyPadInputGet(pGui, m_pElemValT5, pvData);
+        gslc_PopupHide(&m_gui);
+        break;
+      case E_ELEM_NUMINPUT6:
+        gslc_ElemXKeyPadInputGet(pGui, m_pElemValT6, pvData);
+        gslc_PopupHide(&m_gui);
+        break;
+      case E_ELEM_NUMINPUT7:
+        gslc_ElemXKeyPadInputGet(pGui, m_pElemValT7, pvData);
+        gslc_PopupHide(&m_gui);
+        break;
+      case E_ELEM_NUMINPUT8:
+        gslc_ElemXKeyPadInputGet(pGui, m_pElemValT8, pvData);
+        gslc_PopupHide(&m_gui);
+        break;
+      case E_ELEM_NUMINPUT9:
+        gslc_ElemXKeyPadInputGet(pGui, m_pElemValT9, pvData);
+        gslc_PopupHide(&m_gui);
+        break;
+      case E_ELEM_NUMINPUT10:
+        gslc_ElemXKeyPadInputGet(pGui, m_pElemValP1, pvData);
+        gslc_PopupHide(&m_gui);
+        break;
+      case E_ELEM_NUMINPUT11:
+        gslc_ElemXKeyPadInputGet(pGui, m_pElemValP2, pvData);
+        gslc_PopupHide(&m_gui);
+        break;
+      case E_ELEM_NUMINPUT12:
+        gslc_ElemXKeyPadInputGet(pGui, m_pElemValP3, pvData);
+        gslc_PopupHide(&m_gui);
+        break;
+      case E_ELEM_NUMINPUT13:
+        gslc_ElemXKeyPadInputGet(pGui, m_pElemValP4, pvData);
+        gslc_PopupHide(&m_gui);
+        break;
+      case E_ELEM_NUMINPUT14:
+        gslc_ElemXKeyPadInputGet(pGui, m_pElemValP5, pvData);
+        gslc_PopupHide(&m_gui);
+        break;
+      case E_ELEM_NUMINPUT15:
+        gslc_ElemXKeyPadInputGet(pGui, m_pElemValP6, pvData);
+        gslc_PopupHide(&m_gui);
+        break;
+      case E_ELEM_NUMINPUT16:
+        gslc_ElemXKeyPadInputGet(pGui, m_pElemValP7, pvData);
+        gslc_PopupHide(&m_gui);
+        break;
 //<Keypad Enums !End!>
       default:
         break;
