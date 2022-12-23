@@ -17,6 +17,7 @@
 #include <SD.h>
 #include <max6675.h>
 #include <Wire.h>
+#include "RTClib.h"
 
 #define thermoDOT1 1
 #define thermoDOT2 1
@@ -27,6 +28,8 @@
 #define thermoDOT7 1
 #define thermoDOT8 1
 #define thermoDOT9 1
+
+#define SD_CS 4
 
 int thermoCS = 5;
 int thermoCLK = 6;
@@ -41,7 +44,8 @@ MAX6675 thermocoupleT7(thermoCLK, thermoCS, thermoDOT7);
 MAX6675 thermocoupleT8(thermoCLK, thermoCS, thermoDOT8);
 MAX6675 thermocoupleT9(thermoCLK, thermoCS, thermoDOT9);
 
-File myFile;
+File sensorData;
+String dataString;
 
 uint8_t press_channels[] = {A8, A9, A10, A11, A12, A13, A14};
 MAX6675 temp_obj[] = {thermocoupleT1, thermocoupleT2};
@@ -55,6 +59,10 @@ int temperature[9] = {};
 uint8_t readTime = 5000; // read period
 
 unsigned long ellapsedTime = 0;
+
+RTC_DS3231 rtc;
+bool rtc_ok = false;
+String time_str;
 
 // ------------------------------------------------
 // Program Globals
@@ -301,17 +309,114 @@ void printValuesToDisplay()
     gslc_ElemSetTxtStr(&m_gui, tempTxtArr[i], acTxt);
   }
 }
+
+void saveData()
+{
+  dataString = "";
+
+  if (rtc_ok)
+  {
+    DateTime now = rtc.now();
+    char buf2[] = "YYMMDD-hh:mm:ss";
+    time_str = now.toString(buf2);
+  }
+  else
+    time_str = "rtc_err";
+
+  if (SD.exists("data.csv"))
+  { // check the card is still there
+    // now append new data file
+    sensorData = SD.open("data.csv", FILE_WRITE);
+    if (sensorData)
+    {
+      for (int i = 0; i < 6; i++)
+      {
+        char text[100];
+        sprintf(text, "P%d, %d", i + 1, pressure[i]);
+        sensorData.println(time_str + "," + text);
+      }
+      for (int i = 0; i < 8; i++)
+      {
+        char text[100];
+        sprintf(text, "T%d, %d", i + 1, temperature[i]);
+        sensorData.println(time_str + "," + text);
+      }
+
+      sensorData.close(); // close the file
+    }
+  }
+  else
+  {
+    Serial.println("Error writing to file !");
+  }
+}
+
+int RTCInit()
+{
+  if (!rtc.begin())
+  {
+    Serial.println("Couldn't find RTC");
+    return -1;
+  }
+
+  if (rtc.lostPower())
+  {
+    Serial.println("RTC lost power, let's set the time!");
+    // When time needs to be set on a new device, or after a power loss, the
+    // following line sets the RTC to the date & time this sketch was compiled
+    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    // This line sets the RTC with an explicit date & time, for example to set
+    // January 21, 2014 at 3am you would call:
+    // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
+  }
+
+  // When time needs to be re-set on a previously configured device, the
+  // following line sets the RTC to the date & time this sketch was compiled
+  // rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+  // This line sets the RTC with an explicit date & time, for example to set
+  // January 21, 2014 at 3am you would call:
+  // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
+  return 0;
+}
+
+void showDate(const char *txt, const DateTime &dt)
+{
+  Serial.print(txt);
+  Serial.print(' ');
+  Serial.print(dt.year(), DEC);
+  Serial.print('/');
+  Serial.print(dt.month(), DEC);
+  Serial.print('/');
+  Serial.print(dt.day(), DEC);
+  Serial.print(' ');
+  Serial.print(dt.hour(), DEC);
+  Serial.print(':');
+  Serial.print(dt.minute(), DEC);
+  Serial.print(':');
+  Serial.print(dt.second(), DEC);
+
+  Serial.print(" = ");
+  Serial.print(dt.unixtime());
+  Serial.print("s / ");
+  Serial.print(dt.unixtime() / 86400L);
+  Serial.print("d since 1970");
+
+  Serial.println();
+}
+
 void setup()
 {
   // ------------------------------------------------
   // Initialize
   // ------------------------------------------------
   Serial.begin(9600);
-  if (!SD.begin(4))
+  if (!SD.begin(SD_CS))
   {
     Serial.println("SD init failed");
   }
   Serial.println("SD init OK");
+
+  rtc_ok = RTCInit() == 0 ? true : false;
 
   // Wait for USB Serial
   // delay(1000);  // NOTE: Some devices require a delay after Serial.begin() before serial port can be used
